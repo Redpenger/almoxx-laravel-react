@@ -5,6 +5,7 @@ import InputText from "./Form/InputText"
 import InputNumber from "./Form/InputNumber"
 import InputExterno from "./Form/InputExterno"
 import InputFile from "./Form/InputFile"
+import InputDate from "./Form/InputDate"
 
 export default function TelaManutencao({tela, handleClose, handleReload}) {
     const [errors, setErrros] = useState({})
@@ -88,6 +89,9 @@ export default function TelaManutencao({tela, handleClose, handleReload}) {
                 break
             case 'file' :
                 aCampos.push(<InputFile tela={tela} setForm={setForm} form={form} handleChange={handleChange} campo={campo} />)
+                break
+            case 'date' :
+                aCampos.push(<InputDate tela={tela} setForm={setForm} form={form} handleChange={handleChange} campo={campo} />)
                 break
         }
     })
