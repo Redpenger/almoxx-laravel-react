@@ -42,7 +42,7 @@ export default function TelaConsulta({tela, handleClose, handleReload, registroS
                 <div className="mx-3 mt-0.5">Registros: {tela.registros.total}</div>
                 <div className="mx-3">
                     Registros por Página:
-                    <input onKeyDown={(e) => handleAplicaRegistroPorPagina(e)} onChange={(e) => setRegistroPorPagina({...registroPorPagina, [tela.id]: e.target.value})} type="number" className="p-0 mx-2 my-0.5 rounded-md w-20 h-5" value={registroPorPagina[tela.id]}/>
+                    <input onKeyDown={(e) => handleAplicaRegistroPorPagina(e)} onChange={(e) => setRegistroPorPagina({...registroPorPagina, [tela.id]: e.target.value})} type="number" className="p-0 mx-2 my-0.5 rounded-md w-20 h-5 text-black" value={registroPorPagina[tela.id]}/>
                 </div>
                 <div>
                     <nav>
@@ -52,7 +52,7 @@ export default function TelaConsulta({tela, handleClose, handleReload, registroS
                             </li>
                             {Array(tela.registros.last_page).fill(0).map((link, index) => (
                                 <div key={index}>
-                                    <li><span onClick={() => handlePage(index + 1)} className={`${tela.registros.current_page == index + 1 ? 'bg-sky-600 text-blue-100 hover:bg-sky-700': 'cursor-pointer bg-white hover:bg-gray-100 hover:text-gray-700'} flex items-center justify-center px-3 h-5 text-gray-500  border border-gray-300 `}>{index + 1}</span></li>
+                                    <li><span onClick={() => handlePage(index + 1)} className={`${tela.registros.current_page == index + 1 ? 'bg-sky-600 text-white hover:bg-sky-700': 'cursor-pointer bg-white hover:bg-gray-100 hover:text-gray-700'} flex items-center justify-center px-3 h-5 text-gray-500  border border-gray-300 `}>{index + 1}</span></li>
                                 </div>
                             ))}
                             <li>

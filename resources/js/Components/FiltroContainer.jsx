@@ -15,7 +15,7 @@ export default function FiltroContainer({tela, handleReload, campoFiltro, operad
         <>
         {tela.filtros.length > 0 && (
             <>
-                <select name="campo" onChange={(e) => setCampoFiltro({...campoFiltro, [tela.id]: e.target.value})} className="border border-black rounded-md bg-gray-100 px-3 mx-1 my-2 py-1">
+                <select name="campo" onChange={(e) => setCampoFiltro({...campoFiltro, [tela.id]: e.target.value})} className="border border-black rounded-md bg-gray-100 w-40 px-3 mx-1 my-2 py-1">
                     {tela.filtros.map((filtro, index) => (
                         <option key={index} value={filtro.campo.nome}>{filtro.campo.titulo}</option>
                     ))}
