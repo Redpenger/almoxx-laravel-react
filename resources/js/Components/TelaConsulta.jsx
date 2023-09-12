@@ -44,7 +44,7 @@ export default function TelaConsulta({tela, handleClose, handleReload, registroS
                     Registros por Página:
                     <input onKeyDown={(e) => handleAplicaRegistroPorPagina(e)} onChange={(e) => setRegistroPorPagina({...registroPorPagina, [tela.id]: e.target.value})} type="number" className="p-0 mx-2 my-0.5 rounded-md w-20 h-5 text-black" value={registroPorPagina[tela.id]}/>
                 </div>
-                <div>
+                <div className="py-0.5">
                     <nav>
                         <ul className="inline-flex  text-xs">
                             <li>

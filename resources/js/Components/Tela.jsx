@@ -20,16 +20,14 @@ export default function Tela({telaRef}) {
     }
 
     function handleClose(telaId) {
-        const telasAtual = {}
-        const registroSelecionadoAtual = {}
-        Object.keys(telas).map((id, index) => {
-            if(id != telaId) {
-                telasAtual[id] = telas[id]
-                registroSelecionadoAtual[id] = registroSelecionado[id]
-            }
+        setTelas(prev => {
+            delete prev[telaId]
+            return {...prev}
         })
-        setTelas({...telasAtual})
-        setRegistroSelecionado({...registroSelecionadoAtual})
+        setRegistroSelecionado(prev => {
+            delete prev[telaId]
+            return {...prev}
+        })
     }
 
     function handleReload(telaId, p = 1) {
@@ -40,7 +38,6 @@ export default function Tela({telaRef}) {
         let externo = telas[telaId].campoExterno ? true : ''
         let rPorPagina = registroPorPagina[telaId] ? registroPorPagina[telaId] : ''
         let url = telas[telaId].url + `?page=${p}&registrosPorPagina=${rPorPagina}&chave=${telas[telaId].chave}&externo=${externo}&nome=${cFiltro}&operador=${o}&valor1=${v1}&valor2=${v2}` 
-        console.log(url)
         fetch(url, {method: 'GET', headers: {'Content-type': 'application/json'}})
         .then(res => res.json())
         .then(data => {
@@ -48,14 +45,14 @@ export default function Tela({telaRef}) {
             setTelas(prev => {return {...prev, [data.tela.id]: data.tela}})
             telaRef.current[data.tela.id]?.focus()
             telaRef.current[data.tela.id]?.restore()
+            setRegistroSelecionado(prev => {
+                return {
+                    ...prev,
+                    [telaId]: null
+                }
+            })
         })
         .catch(err => console.error(err))
-        setRegistroSelecionado(prev => {
-            return {
-                ...prev,
-                [telaId]: null
-            }
-        })
     }
 
     return(

@@ -60,7 +60,6 @@ export default function TelaManutencao({tela, handleClose, handleReload}) {
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data)
             if(data.errors) {
                 setErrros(data.errors)
             }
