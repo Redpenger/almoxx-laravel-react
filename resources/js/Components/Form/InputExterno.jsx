@@ -91,11 +91,11 @@ export default function InputExterno({campo, handleChange, form, setForm, tela})
         <div className="flex flex-col">
             <label>{campo.titulo}</label>
             <div className="flex">
-                <input onKeyDown={(e) => handleKeyDown(e, campo)} onBlur={(e) => findRegistroExterno(e, campo)} ref={codigoRef} className="m-1 p-1 w-24 rounded-md" type="number" name={campo.nome} value={form[campo.nome]} onChange={handleChange}/>
-                <input ref={nomeRef} className="m-1 p-1 w-full rounded-md" type="text" name={campo.externoNome} value={form[campo.externoNome]} onChange={handleChange}/>
-                <span onClick={openExterno} className={`bg-white px-3 m-1 rounded-md border border-gray-500 ${!tela.acaoEnvio ? 'bg-zinc-300 cursor-default': 'cursor-pointer'}`}>
-                    <BsSearch className={`align-bottom text-1xl mt-3 ${hidden.search}`}/>
-                    <img src='/gifs/loading-gif.gif' className={`w-6 mt-3 ${hidden.loading}`}/>
+                <input onKeyDown={(e) => handleKeyDown(e, campo)} onBlur={(e) => findRegistroExterno(e, campo)} ref={codigoRef} className="me-1 p-1 w-24 rounded-md" type="number" name={campo.nome} value={form[campo.nome]} onChange={handleChange}/>
+                <input ref={nomeRef} className="me-1 p-1 w-full rounded-md" type="text" name={campo.externoNome} value={form[campo.externoNome]} onChange={handleChange}/>
+                <span onClick={openExterno} className={`bg-white flex flex-col me-1 justify-center w-16 align-middle rounded-md border border-gray-500 ${!tela.acaoEnvio ? 'bg-zinc-300 cursor-default': 'cursor-pointer'}`}>
+                    <BsSearch className={`text-1xl m-auto ${hidden.search}`}/>
+                    <img src='/gifs/loading-gif.gif' className={`w-4 m-auto ${hidden.loading}`}/>
                 </span>
             </div>
         </div>

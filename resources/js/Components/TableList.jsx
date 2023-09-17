@@ -19,7 +19,7 @@ export default function TableList({tela, setRegistroSelecionado, registroSelecio
                 </thead>
                 <tbody>
                     {tela.registros.data.map((registro, index) => (
-                        <tr onDoubleClick={() => handleSelectRegistro(registro.id, registro.nome)} onClick={() => setRegistroSelecionado({...registroSelecionado, [tela.id]: registro.id})} key={index}  className={`border-b dark:border-neutral-200 ${registroSelecionado[tela.id] == registro.id ? 'bg-zinc-200' : 'hover:bg-zinc-100'}`}>
+                        <tr onDoubleClick={() => handleSelectRegistro(registro.id, registro.nome)} onClick={() => setRegistroSelecionado(registro.id)} key={index}  className={`border-b dark:border-neutral-200 ${registroSelecionado == registro.id ? 'bg-gray-300': 'hover:bg-gray-200'}`}>
                             {tela.campos.map((campo, index) => (
                                 <td className="whitespace-nowrap px-1 py-1 font-medium" key={index}>{campo.nome.indexOf('.') != -1 ? registro[campo.nome.split('.')[0]][campo.nome.split('.')[1]] : registro[campo.nome]}</td>
                             ))}

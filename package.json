@@ -24,6 +24,7 @@
         "@emotion/styled": "^11.11.0",
         "@mui/material": "^5.14.8",
         "react-icons": "^4.11.0",
+        "react-router-dom": "^6.16.0",
         "react-winbox": "^1.5.0"
     }
 }

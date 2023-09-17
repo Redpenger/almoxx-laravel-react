@@ -3,10 +3,10 @@ import FiltroContainer from "./FiltroContainer";
 import AcaoContainer from "./AcaoContainer";
 import TableList from "./TableList";
 
-export default function TelaConsulta({tela, handleClose, handleReload, registroSelecionado, setRegistroSelecionado, registroPorPagina, setRegistroPorPagina, campoFiltro, operador, valor1, valor2, setCampoFiltro, setOperador, setValor1, setValor2}) {
+export default function TelaConsulta({acoes, loading, tela, handleClose, handleReload, registroSelecionado, setRegistroSelecionado, registroPorPagina, setRegistroPorPagina, campoFiltro, operador, valor1, valor2, setCampoFiltro, setOperador, setValor1, setValor2}) {
     
     useEffect(() => {
-        setRegistroPorPagina({...registroPorPagina, [tela.id]: 30})
+        // setRegistroPorPagina({...registroPorPagina, [tela.id]: 30})
     }, [])
 
     function handleAplicaRegistroPorPagina(e) {
@@ -26,19 +26,21 @@ export default function TelaConsulta({tela, handleClose, handleReload, registroS
         }
         handleReload(tela.id, p)
     }
-
+    if(loading) {
+        return "carregando..."
+    }
     return(
         <>
-            <div className="text-black">
+            {/* <div className="text-black">
                 <FiltroContainer tela={tela} handleReload={handleReload} campoFiltro={campoFiltro} operador={operador} setCampoFiltro={setCampoFiltro} setOperador={setOperador} setValor1={setValor1} setValor2={setValor2} valor1={valor1} valor2={valor2} />
-            </div>
+            </div> */}
             <div className="border-zinc-400 border-b text-black bg-zinc-50">
-                <AcaoContainer tela={tela} registroSelecionado={registroSelecionado} handleReload={handleReload}/>
+                <AcaoContainer handleClose={handleClose} acoes={acoes}/>
             </div>
             <div className="border-t border-gray-600">
                 <TableList handleClose={handleClose} tela={tela} setRegistroSelecionado={setRegistroSelecionado} registroSelecionado={registroSelecionado}/>
             </div>
-            <div className="text-white bottom-0 absolute w-full bg-sky-500 flex text-sm">
+            {/* <div className="text-white bottom-0 absolute w-full bg-sky-500 flex text-sm">
                 <div className="mx-3 mt-0.5">Registros: {tela.registros.total}</div>
                 <div className="mx-3">
                     Registros por Página:
@@ -61,7 +63,7 @@ export default function TelaConsulta({tela, handleClose, handleReload, registroS
                         </ul>
                     </nav>
                 </div>
-            </div>
+            </div> */}
         </>
     )
 }

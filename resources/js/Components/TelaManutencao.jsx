@@ -6,8 +6,12 @@ import InputNumber from "./Form/InputNumber"
 import InputExterno from "./Form/InputExterno"
 import InputFile from "./Form/InputFile"
 import InputDate from "./Form/InputDate"
+import Fieldset from "./Form/Fieldset"
+import Grid from "./Form/Grid"
 
 export default function TelaManutencao({tela, handleClose, handleReload}) {
+    console.log(tela)
+
     const [errors, setErrros] = useState({})
     const {telas, setTelas, telaRef} = useContext(TelasContext)
     const formInitialState = {}
@@ -92,8 +96,15 @@ export default function TelaManutencao({tela, handleClose, handleReload}) {
             case 'date' :
                 aCampos.push(<InputDate tela={tela} setForm={setForm} form={form} handleChange={handleChange} campo={campo} />)
                 break
+            case 'fieldset':
+                aCampos.push(<Fieldset tela={tela} setForm={setForm} form={form} handleChange={handleChange} campo={campo} />)
+                break
+            case 'grid':
+                aCampos.push(<Grid tela={tela} setForm={setForm} form={form} handleChange={handleChange} campo={campo} />)
+                break
         }
     })
+    console.log(aCampos)
 
     return(
         <>

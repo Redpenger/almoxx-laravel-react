@@ -4,6 +4,8 @@
 
 body {
     width: 100%;
+    height: 100vh;
+    overflow-x: hidden;
     background-color: gray;
   }
   /* 
@@ -27,7 +29,7 @@ body {
   .wb-body {
     /* overflow: hidden!important; */
     margin: 4px;
-    color: #fff;
+    color: black;
     background: rgb(247, 246, 246)!important;
     /* overflow: hidden!important; */
   }
@@ -35,16 +37,16 @@ body {
   input:disabled {
     background-color: lightgrey;
   }
-  input {
+  /* input {
     color: rgb(37, 37, 37);
     border: 1px solid grey;
     padding: 8px 12px;
-  }
+  } */
   
   input:focus {
     border: 1px solid #03A9F4;
   }
-  
+/*   
   label {
     margin-bottom: 3px;
-  }
+  } */

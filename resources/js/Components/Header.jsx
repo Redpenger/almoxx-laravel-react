@@ -8,10 +8,10 @@ export default function Header() {
             <div className={styles.nav_xbootstrap}>
             <ul className="text-white z-50 list-none m-0 mb-1 p-0 block border-b-black">
                 <li className={styles.iconHeader}>Almoxx <BsHouse className="mt-1 mx-2"/></li>
-                <li ><Link to="http://127.0.0.1:8000/api/pedido/consulta">Pedidos</Link></li>
-                <li ><Link to="http://127.0.0.1:8000/api/produto/consulta">Produtos</Link></li>
-                <li ><Link to="http://127.0.0.1:8000/api/categoria/consulta">Categorias</Link></li>
-                <li ><Link to="http://127.0.0.1:8000/api/cliente/consulta">Clientes</Link></li>
+                <li ><Link to="pedidoConsulta">Pedidos</Link></li>
+                <li ><Link to="produtoConsulta">Produtos</Link></li>
+                <li ><Link to="categoriaConsulta">Categorias</Link></li>
+                <li ><Link to="clienteConsulta">Clientes</Link></li>
                 <li >
                     <span className="inline-block">Movimentações<span></span></span>
                     <ul className={styles.dropdown}>

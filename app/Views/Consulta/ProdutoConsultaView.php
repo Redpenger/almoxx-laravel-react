@@ -18,7 +18,7 @@ class ProdutoConsultaView extends ConsultaView {
         $quantidade = new CampoConsulta('number', 'Quantidade', 'quantidade');
         $quantidade->filtro(true);
 
-        $this->addComponent( $id, $nome, $categoria, $quantidade);
+        $this->addComponent($id, $nome, $categoria, $quantidade);
     }
 
     protected function criaAcoes()
@@ -28,7 +28,8 @@ class ProdutoConsultaView extends ConsultaView {
         $visualizar = new Acao('Visualizar', 'show', route('produto.manutencao'), 'grid');
         $excluir = new Acao('Excluir', 'destroy', route('produto.manutencao'), 'grid');
         $subprodutos = new Acao('Subprodutos', 'consulta', route('produtosubproduto.consulta'), 'grid');
-        $this->addAcao($incluir, $editar, $visualizar, $excluir, $subprodutos);
+        $variacoes = new Acao('Variações', 'consulta', route('grupovariacao.consulta'), 'grid');
+        $this->addAcao($incluir, $editar, $visualizar, $excluir, $subprodutos, $variacoes);
     }
 
 
