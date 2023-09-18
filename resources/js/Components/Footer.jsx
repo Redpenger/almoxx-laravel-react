@@ -9,7 +9,6 @@ export default function Footer({telaRef}) {
         // debugger
         if(telaRef.current[telaId].isHidden()) {
             telaRef.current[telaId].show()
-            // telaRef.current[telaId].restore()
             telaRef.current[telaId].focus()
         } else if(!telaRef.current[telaId].isFocused()) {
             telaRef.current[telaId].focus()

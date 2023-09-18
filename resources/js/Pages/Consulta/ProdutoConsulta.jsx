@@ -9,12 +9,14 @@ const acoes = [
     {
         nome: 'Incluir',
         tipo: 'create',
+        acao: 'store',
         pagina: 'produtoManutencao',
         toggler: 'Incluir Produto'
     },
     {
         nome: 'editar',
         tipo: 'edit',
+        acao: 'update',
         pagina: 'produtoManutencao',
         toggler: 'Editar Produto'
     }
@@ -27,6 +29,7 @@ export default function ProdutoConsulta({handleClose, innerRef}) {
     const [registroSelecionado, setRegistroSelecionado] = useState()
 
     useEffect(() => {
+        console.log('effect..')
         fetch(URL, {
             method: 'GET',
         })

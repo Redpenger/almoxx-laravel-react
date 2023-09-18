@@ -1,6 +1,6 @@
 import { AiOutlineClose } from 'react-icons/ai'
 import { FiMaximize } from 'react-icons/fi'
-import { CiMinimize1 } from 'react-icons/ci'
+import { FaRegWindowMinimize } from 'react-icons/fa'
 import { Component } from 'react'
 
 const TELA_MAX_HEIGHT = document.body.clientHeight - 82
@@ -20,10 +20,11 @@ class Janela extends Component {
             top: this.props.top ?? 0,
             bottom: this.props.bottom ?? '36px',
             left: this.props.left ?? 0,
-            right: this.props.right ?? document.body.clientWidth
+            right: this.props.right ?? document.body.clientWidth,
         }
         this.title = this.props.title
         this.id = this.props.id
+        this.rodape = this.props.rodape
         
     }
 
@@ -43,11 +44,11 @@ class Janela extends Component {
     }
     focus = () => {
         Array.from(document.getElementsByClassName('janela')).map((janela, index) => {
-            janela.classList.add('z-0')
+            janela.classList.add('z-auto')
             janela.classList.remove('z-10')
         })
         document.getElementById(this.id).classList.add('z-10')
-        document.getElementById(this.id).classList.remove('z-0')
+        document.getElementById(this.id).classList.remove('z-auto')
     }
 
     isFocused = () => {
@@ -84,7 +85,6 @@ class Janela extends Component {
                 }
             })
         }
-
         e = e || window.event
         e.preventDefault()
         document.onmouseup = () => {
@@ -129,7 +129,6 @@ class Janela extends Component {
                     })
                     break
                 case 'right':
-                    console.log(e.movementY)
                     this.setState(prev => {
                         return {
                             ...prev,
@@ -152,13 +151,15 @@ class Janela extends Component {
                         <div onMouseDown={this.handleDrag} onDoubleClick={this.handleMaximize} id='drag' className={`select-none absolute px-1 text-sm flex flex-col h-6 justify-center text-white w-full top-0 ${!this.isMaximized() ? 'cursor-move': ''}`}>{this.title}</div>
                         {/* control container */}
                         <div className="absolute right-0 top-0 flex">
-                            <span onClick={this.handleMinimize} className='cursor-pointer p-1'><CiMinimize1 className='hover:text-white'/></span>
+                            <span onClick={this.handleMinimize} className='cursor-pointer p-1'><FaRegWindowMinimize className='hover:text-white'/></span>
                             <span onClick={this.handleMaximize} className='cursor-pointer p-1'><FiMaximize className='hover:text-white'/></span>
                             <span onClick={this.handleClose} className='cursor-pointer p-1'><AiOutlineClose className='hover:text-white'/></span>
                         </div>
                 </div>
                 {/* body container */}
-                <div style={{height: 'calc(100% - 24px)'}} className='border-sky-500 border-2'>{this.props.children}</div>
+                <div style={{height: 'calc(100% - 50px)'}} className='border-sky-500 border-2 overflow-auto'>{this.props.children}</div>
+                {/* rodape container */}
+                <div className='absolute bottom-0 w-full'>{this.rodape}</div>
                 {/* resizes containers */}
                 <div onMouseDown={(e) => this.handleResize(e, 'up')} className={`absolute top-0 w-full h-2 ${!this.isMaximized() ? 'cursor-n-resize' : ''}`}></div>
                 <div onMouseDown={(e) => this.handleResize(e, 'down')} className={`absolute bottom-0 h-2 w-full ${!this.isMaximized() ? 'cursor-s-resize' : ''}`}></div>

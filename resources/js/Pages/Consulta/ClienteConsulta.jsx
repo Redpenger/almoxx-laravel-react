@@ -1,3 +1,4 @@
+import Janela from "@/Components/Janela"
 import TelaConsulta from "@/Components/TelaConsulta"
 import { TelasContext } from "@/Contexts/TelasContext"
 import { useContext, useEffect, useState } from "react"
@@ -5,8 +6,9 @@ import WinBox from "react-winbox"
 
 const TELA_ID = 'clienteConsulta'
 const URL = 'http://127.0.0.1:8000/api/cliente/consulta'
+const acoes = []
 
-export default function ClienteConsulta({handleClose}) {
+export default function ClienteConsulta({handleClose, innerRef}) {
     const {telas, setTelas, telaRef} = useContext(TelasContext)
     const [tela, setTela] = useState()
     const [loading, setLoading] = useState(true)
@@ -27,27 +29,18 @@ export default function ClienteConsulta({handleClose}) {
 
     return (
         <>
-            <WinBox 
-                    ref={el => telaRef.current[TELA_ID] = el}
-                    noShadow={true}
-                    noFull={true}
-                    id={TELA_ID}
-                    title={'Consulta de Clientes'}
-                    width={'100%'}
-                    height={'100%'}                    
-                    top="36"
-                    bottom="46"
-                    maxWidth={document.body.clientWidth}
-                    maxHeight="668"
-                    background='#03A9F4'
-                    border="2"
-                    // onMinimize={() => handleMinimize(telaId)}
-                    onClose={() => handleClose(TELA_ID)}
-                >
-                    
-                    <TelaConsulta loading={loading} tela={tela} handleClose={handleClose} registroSelecionado={registroSelecionado} setRegistroSelecionado={setRegistroSelecionado}/>
-                    
-                </WinBox>
+            <Janela ref={el => innerRef.current[TELA_ID] = el} 
+                        onClose={() => handleClose(TELA_ID)}
+                        title={'Consulta de Clientes'}  
+                        id={TELA_ID}  
+                        width={document.body.clientWidth}
+                        height={document.body.clientHeight - 82 + 'px'}
+                        top={'35px'}
+                    >
+                    <TelaConsulta acoes={acoes} loading={loading} tela={tela} handleClose={handleClose} registroSelecionado={registroSelecionado} setRegistroSelecionado={setRegistroSelecionado}/>
+
+
+            </Janela>
         </>
     )
 }

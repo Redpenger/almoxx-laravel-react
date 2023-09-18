@@ -1,6 +1,5 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { TelasContext } from '../Contexts/TelasContext'
-import 'winbox/dist/css/winbox.min.css'; // required
 
 export default function Tela({telaRef}) {
     const {telas, setTelas} = useContext(TelasContext)
