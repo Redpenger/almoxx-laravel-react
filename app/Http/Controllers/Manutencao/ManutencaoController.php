@@ -87,8 +87,9 @@ class ManutencaoController extends Controller
      * Endpoint de visualização, abre a tela de manutenção de visualização
      */
     public function show() {
-        $this->setNome('Visualizar');
-        return $this->criaTela();
+        return response()->json([
+            'registro' => $this->getRegistro()
+        ]);
     }
 
     /**

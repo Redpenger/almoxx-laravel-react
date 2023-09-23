@@ -1,25 +1,74 @@
-import { useEffect } from "react"
 import FiltroContainer from "./FiltroContainer";
 import AcaoContainer from "./AcaoContainer";
 import TableList from "./TableList";
+import { useState } from "react";
+import TelaList from "@/TelaList";
+import TelasActionTypes from "@/Redux/Telas/TelasActionTypes";
+import ForceReloadActionTypes from "@/Redux/ForceReload/ForceReloadActionTypes";
+import { useDispatch } from "react-redux";
+import RoadapeConsulta from "./RodapeConsulta";
 
-export default function TelaConsulta({acoes, loading, tela, handleClose, handleReload, registroSelecionado, setRegistroSelecionado, registroPorPagina, setRegistroPorPagina, campoFiltro, operador, valor1, valor2, setCampoFiltro, setOperador, setValor1, setValor2}) {
-    
+export default function TelaConsulta({telaId, externo, acoes, loading, tela, registroSelecionado, setRegistroSelecionado, filtros}) {
+    const dispatch = useDispatch()
+    const [campo, setCampo] = useState(null)
+    const [operador, setOperador] = useState()
+    const [valor1, setValor1] = useState('')
+    const [valor2, setValor2] = useState('')
+    const [registrosPagina, setRegistrosPagina] = useState(30)
+
     if(loading) {
         return "carregando..."
     }
+
+    function aplicaFiltros(page = 1) {
+        const component = TelaList(telaId, {filtro: {campo: campo, operador: operador, valor1: valor1, valor2: valor2}, registrosPorPagina: registrosPagina, page: page})
+        const tela = {
+            id: telaId,
+            pagina: component.pagina,
+            title: component.title
+        }
+        dispatch({
+            type: TelasActionTypes.ADD,
+            payload: {
+                id: telaId,
+                tela: tela
+            } 
+        })
+        dispatch({
+            type: ForceReloadActionTypes.RELOAD,
+            payload: {
+                id: telaId
+            }
+        })
+    }
+
+    function aplicaRegistroPorPagina(e) {
+        if(e.key == 'Enter') {
+            aplicaFiltros()
+        }
+    }
+
+    function aplicaPagina(e) {
+        e.preventDefault()
+        let url = new URL(e.target.href)
+        let page = url.searchParams.get('page')
+        aplicaFiltros(page)
+    }
+    
     return(
-        <>
-            {/* <div className="text-black">
-                <FiltroContainer tela={tela} handleReload={handleReload} campoFiltro={campoFiltro} operador={operador} setCampoFiltro={setCampoFiltro} setOperador={setOperador} setValor1={setValor1} setValor2={setValor2} valor1={valor1} valor2={valor2} />
-            </div> */}
+        <div>
+            <div className="text-black py-1">
+                {filtros && <FiltroContainer aplicaFiltros={aplicaFiltros} filtros={filtros} telaId={telaId} campo={campo} setCampo={setCampo} operador={operador} setOperador={setOperador} valor1={valor1} setValor1={setValor1} valor2={valor2} setValor2={setValor2}/>}
+            </div>
             <div className="border-zinc-400 border-b text-black bg-zinc-50">
-                <AcaoContainer handleClose={handleClose} acoes={acoes}/>
+                <AcaoContainer acoes={acoes}/>
             </div>
             <div className="border-t border-gray-600">
-                <TableList handleClose={handleClose} tela={tela} setRegistroSelecionado={setRegistroSelecionado} registroSelecionado={registroSelecionado}/>
+                <TableList telaId={telaId} externo={externo} tela={tela} setRegistroSelecionado={setRegistroSelecionado} registroSelecionado={registroSelecionado}/>
             </div>
-            
-        </>
+            <div>
+                <RoadapeConsulta aplicaPagina={aplicaPagina} tela={tela} aplicaRegistroPorPagina={aplicaRegistroPorPagina} registrosPagina={registrosPagina} setRegistrosPagina={setRegistrosPagina}/>
+            </div>
+        </div>
     )
 }

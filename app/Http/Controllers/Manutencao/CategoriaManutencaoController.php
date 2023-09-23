@@ -58,9 +58,9 @@ class CategoriaManutencaoController extends ManutencaoController
         return $this->criaTela();
     }
 
-    public function show() {
-        $this->setAcao('show');
-        $this->setNome('Visualizar Categoria');
-        return $this->criaTela();
-    }
+    // public function show() {
+    //     $this->setAcao('show');
+    //     $this->setNome('Visualizar Categoria');
+    //     return $this->criaTela();
+    // }
 }

@@ -1,8 +1,10 @@
 import { useContext, useEffect, useState } from 'react'
 import { TelasContext } from '../Contexts/TelasContext'
+import { useSelector } from 'react-redux'
 
 export default function Tela({telaRef}) {
-    const {telas, setTelas} = useContext(TelasContext)
+    // const {telas, setTelas} = useContext(TelasContext)
+    const telas = useSelector(root => root.TelasReducer)
 
     return(
         <>

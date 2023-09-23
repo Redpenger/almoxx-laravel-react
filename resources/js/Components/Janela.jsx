@@ -28,6 +28,7 @@ class Janela extends Component {
         
     }
 
+
     isMaximized = () => {
         return this.state.maximized
     }
@@ -44,16 +45,17 @@ class Janela extends Component {
     }
     focus = () => {
         Array.from(document.getElementsByClassName('janela')).map((janela, index) => {
-            janela.classList.add('z-auto')
+            janela.classList.add('z-0')
             janela.classList.remove('z-10')
         })
         document.getElementById(this.id).classList.add('z-10')
-        document.getElementById(this.id).classList.remove('z-auto')
+        document.getElementById(this.id).classList.remove('z-0')
     }
 
     isFocused = () => {
         return document.getElementById(this.id).classList.contains('z-10')
     }
+
 
     handleClose = () => {
         this.setState({open: false})
@@ -114,7 +116,6 @@ class Janela extends Component {
                     this.setState(prev => {
                         return {
                             ...prev,
-                            // y: parseInt(this.state.y) + e.movementY,
                             height: parseInt(this.state.height) + e.movementY
                         }
                     })
@@ -132,7 +133,6 @@ class Janela extends Component {
                     this.setState(prev => {
                         return {
                             ...prev,
-                            // x: parseInt(this.state.x) + e.movementX,
                             width: parseInt(this.state.width) + e.movementX
                         }
                     })
@@ -144,7 +144,7 @@ class Janela extends Component {
     render() {
         return(
             // Janela
-            <div style={{top: this.isMaximized() ? this.state.top : this.state.y, left: this.isMaximized() ? this.state.left : this.state.x, width: this.isMaximized() ? document.body.clientWidth : this.state.width, height: this.isMaximized() ? TELA_MAX_HEIGHT : this.state.height}} onClick={this.focus} id={this.id} className={`z-10 janela absolute bg-gray-100 ${open && !this.state.hidden ? 'block' : 'hidden'} `}>
+            <div style={{top: this.isMaximized() ? this.state.top : this.state.y, left: this.isMaximized() ? this.state.left : this.state.x, width: this.isMaximized() ? document.body.clientWidth : this.state.width, height: this.isMaximized() ? TELA_MAX_HEIGHT : this.state.height}} onClick={this.focus} id={this.id} className={`z-10 bg-sky-500 text-white absolute ${open && !this.state.hidden ? 'block' : 'hidden'} `}>
                 {/* header container */}
                 <div className='h-6 bg-sky-400'>
                         {/* drag contaiener */}
@@ -157,7 +157,7 @@ class Janela extends Component {
                         </div>
                 </div>
                 {/* body container */}
-                <div style={{height: 'calc(100% - 50px)'}} className='border-sky-500 border-2 overflow-auto'>{this.props.children}</div>
+                <div style={{height: 'calc(100% - 50px)'}} className='border-sky-500 border-2 overflow-auto bg-gray-100'>{this.props.children}</div>
                 {/* rodape container */}
                 <div className='absolute bottom-0 w-full'>{this.rodape}</div>
                 {/* resizes containers */}

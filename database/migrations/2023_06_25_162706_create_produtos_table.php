@@ -17,7 +17,7 @@ class CreateProdutosTable extends Migration
             $table->id();
             $table->string('nome', 150);
             $table->foreignId('categoria_id');
-            $table->string('foto',500);
+            $table->string('foto',500)->nullable();
             $table->timestamps();
 
             $table->foreign('categoria_id')->references('id')->on('categorias');

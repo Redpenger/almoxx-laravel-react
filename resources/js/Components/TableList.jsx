@@ -1,10 +1,18 @@
-export default function TableList({tela, setRegistroSelecionado, registroSelecionado, handleClose}) {
-    
+import useHandleClose from "@/Hooks/useHandleClose"
+
+export default function TableList({tela, telaId, setRegistroSelecionado, registroSelecionado, externo}) {
+    const handleClose = useHandleClose(telaId)
+
     function handleSelectRegistro(id, nome) {
-        if(!tela.campoExterno) return
-        handleClose(tela.id)
-        tela.campoExterno.obj[tela.campoExterno.codigoForm] = id
-        tela.campoExterno.obj[tela.campoExterno.nomeForm] = nome
+        if(!externo) return
+        externo.fnSetForm(prev => {
+            return {
+                ...prev,
+                [externo.campoCodigo] : id,
+                [externo.campoNome] : nome
+            }
+        })
+        handleClose()
     }
     
     return(

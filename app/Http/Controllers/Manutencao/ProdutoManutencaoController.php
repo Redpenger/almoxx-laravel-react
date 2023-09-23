@@ -53,7 +53,7 @@ class ProdutoManutencaoController extends ManutencaoController
         }
         $this->Model = $this->Model->find($request->id);
         $fileName = $this->Model->getFotoRaw();
-        $result = Storage::disk('public')->delete($fileName);
+        $fileName ? $result = Storage::disk('public')->delete($fileName) : '';
         $this->Model->update($dados);
         return response()->json([
             'janela' => $request->janela,

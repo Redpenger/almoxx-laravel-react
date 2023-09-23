@@ -1,19 +1,22 @@
 import { useContext, useEffect, useState } from 'react'
 import { TelasContext } from '../Contexts/TelasContext'
+import { useSelector } from 'react-redux'
 
-export default function Footer({telaRef}) {
-    const {telas, setTelas} = useContext(TelasContext)
+export default function Footer() {
+    const telaRef = useSelector(root => root.TelaRefReducer)
+    // const {telas, setTelas} = useContext(TelasContext)
+    const telas = useSelector(root => root.TelasReducer)
     const [reloader, setReloader] = useState(true)
 
     function handleToggler(telaId) {
         // debugger
-        if(telaRef.current[telaId].isHidden()) {
-            telaRef.current[telaId].show()
-            telaRef.current[telaId].focus()
-        } else if(!telaRef.current[telaId].isFocused()) {
-            telaRef.current[telaId].focus()
+        if(telaRef[telaId].isHidden()) {
+            telaRef[telaId].show()
+            telaRef[telaId].focus()
+        } else if(!telaRef[telaId].isFocused()) {
+            telaRef[telaId].focus()
         } else {
-            telaRef.current[telaId].hide()
+            telaRef[telaId].hide()
         }
     }
 

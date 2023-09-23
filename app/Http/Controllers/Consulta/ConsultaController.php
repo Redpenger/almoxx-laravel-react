@@ -79,7 +79,7 @@ class ConsultaController extends Controller
     }
 
     protected function getModelFiltrado() {
-        $filtroNome     = request()->get('nome');
+        $filtroNome     = request()->get('campo');
         $filtroOperador = request()->get('operador');
         $filtroValor1   = request()->get('valor1');
         $filtroValor2   = request()->get('valor2');
