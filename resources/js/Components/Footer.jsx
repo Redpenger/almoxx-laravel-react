@@ -28,7 +28,7 @@ export default function Footer() {
                         <div key={index} onClick={() => handleToggler(telaId)} className='border border-sky-950 border-collapse px-4 cursor-pointer bg-sky-600 text-white'>{telas[telaId].title}</div>
                     ))}
                 </div>
-                <div className="border">div2</div>
+                <div className="border">sdf</div>
             </div>
         </footer>
     )

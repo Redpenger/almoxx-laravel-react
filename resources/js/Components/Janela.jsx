@@ -144,7 +144,7 @@ class Janela extends Component {
     render() {
         return(
             // Janela
-            <div style={{top: this.isMaximized() ? this.state.top : this.state.y, left: this.isMaximized() ? this.state.left : this.state.x, width: this.isMaximized() ? document.body.clientWidth : this.state.width, height: this.isMaximized() ? TELA_MAX_HEIGHT : this.state.height}} onClick={this.focus} id={this.id} className={`z-10 bg-sky-500 text-white absolute ${open && !this.state.hidden ? 'block' : 'hidden'} `}>
+            <div style={{top: this.isMaximized() ? this.state.top : this.state.y, left: this.isMaximized() ? this.state.left : this.state.x, width: this.isMaximized() ? document.body.clientWidth : this.state.width, height: this.isMaximized() ? TELA_MAX_HEIGHT : this.state.height}} onClick={this.focus} id={this.id} className={`z-10 bg-sky-500 janela text-white absolute ${open && !this.state.hidden ? 'block' : 'hidden'} `}>
                 {/* header container */}
                 <div className='h-6 bg-sky-400'>
                         {/* drag contaiener */}

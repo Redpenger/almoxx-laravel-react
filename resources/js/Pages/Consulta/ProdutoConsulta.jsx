@@ -1,3 +1,4 @@
+import AcaoConsulta from "@/Components/AcaoConsulta"
 import AcaoExcluir from "@/Components/AcaoExcluir"
 import AcaoManutencao from "@/Components/AcaoManutencao"
 import Janela from "@/Components/Janela"
@@ -27,6 +28,9 @@ export default function ProdutoConsulta({externo, filtro, registrosPorPagina, pa
         },
         {
             el: <AcaoExcluir acao={{telaPai: TELA_ID, chave: registroSelecionado , nome: 'Excluir', tipo: 'destroy', acao: 'destroy', pagina: 'produtoConsulta', actionUrl: 'http://127.0.0.1:8000/api/produto/manutencao'}}/>
+        },
+        {
+            el: <AcaoConsulta acao={{telaPai: TELA_ID, chave: registroSelecionado , nome: 'Subprodutos', tipo: 'consulta', acao: 'openPage', pagina: 'produtosubprodutoConsulta'}}/>
         }
     ]
 
@@ -85,7 +89,7 @@ export default function ProdutoConsulta({externo, filtro, registrosPorPagina, pa
                         height={document.body.clientHeight - 82 + 'px'}
                         top={'35px'}
                     >
-                    <TelaConsulta telaId={TELA_ID} filtros={filtros} acoes={acoes} loading={loading} tela={tela} registroSelecionado={registroSelecionado} setRegistroSelecionado={setRegistroSelecionado}/>
+                    <TelaConsulta externo={externo} telaId={TELA_ID} filtros={filtros} acoes={acoes} loading={loading} tela={tela} registroSelecionado={registroSelecionado} setRegistroSelecionado={setRegistroSelecionado}/>
                 </Janela>
                 
         </>
