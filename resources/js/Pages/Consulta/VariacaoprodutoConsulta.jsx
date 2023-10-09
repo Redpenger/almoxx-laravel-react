@@ -1,3 +1,4 @@
+import AcaoConsulta from "@/Components/AcaoConsulta"
 import AcaoExcluir from "@/Components/AcaoExcluir"
 import AcaoManutencao from "@/Components/AcaoManutencao"
 import Janela from "@/Components/Janela"
@@ -7,10 +8,11 @@ import TelaRefActionTypes from "@/Redux/TelaRef.jsx/TelaRefActionTypes"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
-const Url = 'http://127.0.0.1:8000/api/produtosubproduto/consulta'
+const Url = 'http://127.0.0.1:8000/api/grupovariacao/consulta'
 
-export default function ProdutoConsulta({externo, filtro, registrosPorPagina, page, acao}) {
-    const TELA_ID = !externo ? 'produtosubprodutoConsulta' : 'produtosubprodutoConsulta-externo'
+export default function VariacaoprodutoConsulta({externo, filtro, registrosPorPagina, page, acao}) {
+    console.log(acao)
+    const TELA_ID = !externo ? 'variacaoprodutoConsulta' : 'variacaoprodutoConsulta-externo'
     const dispatch = useDispatch()
     const reloader = useSelector(root => root.ForceReloadReducer)
     const handleClose = useHandleClose(TELA_ID)
@@ -20,20 +22,20 @@ export default function ProdutoConsulta({externo, filtro, registrosPorPagina, pa
 
     const acoes = [
         {
-            el: <AcaoManutencao acao={{telaPai: TELA_ID, chave: acao.chave , nome: 'Incluir', tipo: 'create', acao: 'store', pagina: 'produtosubprodutoManutencao'}}/>
+            el: <AcaoManutencao acao={{registroPai: acao.chave, telaPai: TELA_ID, chave: registroSelecionado , nome: 'Incluir', tipo: 'create', acao: 'store', pagina: 'variacaoprodutoManutencao'}}/>
         },
         {
-            el: <AcaoManutencao acao={{telaPai: TELA_ID, chave: registroSelecionado , nome: 'Editar', tipo: 'edit', acao: 'update', pagina: 'produtosubprodutoManutencao'}}/>
+            el: <AcaoManutencao acao={{registroPai: acao.chave, telaPai: TELA_ID, chave: registroSelecionado , nome: 'Editar', tipo: 'edit', acao: 'update', pagina: 'variacaoprodutoManutencao'}}/>
         },
         {
-            el: <AcaoExcluir acao={{telaPai: TELA_ID, chave: registroSelecionado , nome: 'Excluir', tipo: 'destroy', acao: 'destroy', pagina: 'produtosubprodutoConsulta', actionUrl: 'http://127.0.0.1:8000/api/produtosubproduto/manutencao'}}/>
+            el: <AcaoExcluir acao={{telaPai: TELA_ID, chave: registroSelecionado , nome: 'Excluir', tipo: 'destroy', acao: 'destroy', pagina: 'variacaoprodutoConsulta', actionUrl: 'http://127.0.0.1:8000/api/produto/manutencao'}}/>
         }
     ]
 
     const filtros = 
         {
-            quantidade: {
-                nome: 'Quantidade',
+            id: {
+                nome: 'Código',
                 operadores : {
                     igual: '=',
                     maior: '>',
@@ -41,8 +43,8 @@ export default function ProdutoConsulta({externo, filtro, registrosPorPagina, pa
                     entre: 'BETWEEN'
                 }
             },
-            'produtoFilho.nome': {
-                nome: 'Produto',
+            nome: {
+                nome: 'Nome',
                 operadores : {
                     igual: '=',
                     contem: 'LIKE',
@@ -63,7 +65,7 @@ export default function ProdutoConsulta({externo, filtro, registrosPorPagina, pa
         registrosPorPagina = registrosPorPagina ? registrosPorPagina : ''
         page = page ? page : 1
         let chave = acao?.chave ? acao.chave : ''
-        fetch(Url + '?' + encodeParams(filtro) + `&chave=${chave}` + `&page=${page}` + `&registrosPorPagina=${registrosPorPagina}`, {
+        fetch(Url + '?' + encodeParams(filtro) + `&produto_id=${chave}`  + `&page=${page}` + `&registrosPorPagina=${registrosPorPagina}`, {
             method: 'GET',
         })
         .then(res => res.json())
@@ -80,13 +82,13 @@ export default function ProdutoConsulta({externo, filtro, registrosPorPagina, pa
         <>
                 <Janela ref={el => dispatch({type: TelaRefActionTypes.ADD, payload: {id: TELA_ID, ref: el}})} 
                         onClose={() => handleClose(TELA_ID)}
-                        title={'Consulta de Subprodutos'}  
+                        title={'Consulta de Variações'}  
                         id={TELA_ID}  
                         width={document.body.clientWidth}
                         height={document.body.clientHeight - 82 + 'px'}
                         top={'35px'}
                     >
-                    <TelaConsulta chave={acao.chave} telaId={TELA_ID} filtros={filtros} acoes={acoes} loading={loading} tela={tela} registroSelecionado={registroSelecionado} setRegistroSelecionado={setRegistroSelecionado}/>
+                    <TelaConsulta chave={acao.chave} externo={externo} telaId={TELA_ID} filtros={filtros} acoes={acoes} loading={loading} tela={tela} registroSelecionado={registroSelecionado} setRegistroSelecionado={setRegistroSelecionado}/>
                 </Janela>
                 
         </>

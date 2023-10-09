@@ -12,4 +12,11 @@ class GrupovariacaoConsultaController extends ConsultaController
     {
         return new GrupoVariacaoConsultaView();
     }
+
+    protected function getRegistros()
+    {
+        $model = $this->getModelFiltrado();
+        $model->where('produto_id', request()->get('produto_id'));
+        return $model->paginate($this->getPagination());
+    }
 }

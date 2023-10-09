@@ -44,8 +44,8 @@ export default function PedidoConsulta({externo, filtro, registrosPorPagina, pag
                     entre: 'BETWEEN'
                 }
             },
-            nome: {
-                nome: 'Nome',
+            'cliente.nome': {
+                nome: 'Cliente',
                 operadores : {
                     igual: '=',
                     contem: 'LIKE',
@@ -89,7 +89,7 @@ export default function PedidoConsulta({externo, filtro, registrosPorPagina, pag
                     height={document.body.clientHeight - 82 + 'px'}
                     top={'35px'}
                     >
-                    <TelaConsulta filtros={filtros} acoes={acoes} loading={loading} tela={tela} handleClose={handleClose} registroSelecionado={registroSelecionado} setRegistroSelecionado={setRegistroSelecionado}/>
+                    <TelaConsulta telaId={TELA_ID} filtros={filtros} acoes={acoes} loading={loading} tela={tela} handleClose={handleClose} registroSelecionado={registroSelecionado} setRegistroSelecionado={setRegistroSelecionado}/>
             </Janela>
                     
                     

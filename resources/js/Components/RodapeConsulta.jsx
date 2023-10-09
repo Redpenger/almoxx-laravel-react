@@ -12,10 +12,10 @@ export default function RoadapeConsulta({tela, aplicaRegistroPorPagina, aplicaPa
                 
                 <ul class="flex -space-x-px text-sm text-black">
                     {tela.registros.links.map((link, index) => (
-                        <li>
+                        <li key={index}>
                             {index == 0 && (<a onClick={aplicaPagina} href={link.url} className="px-2 bg-gray-200 border border-gray-600 rounded-s-md ms-4 py-0.5">Anterior</a>)}
                             {(index >= 1 && index < tela.registros.links.length -1) && (
-                                <li><a onClick={aplicaPagina} href={link.url} className={`px-1.5 bg-gray-200 border border-gray-600 py-0.5 ${link.active ? 'bg-sky-700 text-gray-100': ''}`}>{link.label}</a></li>
+                                <a onClick={aplicaPagina} href={link.url} className={`px-1.5 bg-gray-200 border border-gray-600 py-0.5 ${link.active ? 'bg-sky-700 text-gray-100': ''}`}>{link.label}</a>
                             )} 
                             {index == tela.registros.links.length -1 && (<a onClick={aplicaPagina} className="px-2 bg-gray-200 border py-0.5 border-gray-600 rounded-e-md" href={link.url}>Próximo</a>)} 
                             

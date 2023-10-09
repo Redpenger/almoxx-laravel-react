@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('variacao_produtos', function (Blueprint $table) {
             $table->id();
-            $table->string('nome', 100);
             $table->foreignId('produto_id');
-            $table->foreignId('grupo_variacao_id');
+            $table->foreignId('variacao_id');
+            $table->integer('quantidade');
             $table->timestamps();
 
             $table->foreign('produto_id')->references('id')->on('produtos');
-            $table->foreign('grupo_variacao_id')->references('id')->on('grupo_variacoes');
+            $table->foreign('variacao_id')->references('id')->on('variacoes');
         });
     }
 

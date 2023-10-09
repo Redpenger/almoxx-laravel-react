@@ -7,8 +7,9 @@ import TelasActionTypes from "@/Redux/Telas/TelasActionTypes";
 import ForceReloadActionTypes from "@/Redux/ForceReload/ForceReloadActionTypes";
 import { useDispatch } from "react-redux";
 import RoadapeConsulta from "./RodapeConsulta";
+import Loading from "./Loading";
 
-export default function TelaConsulta({telaId, externo, acoes, loading, tela, registroSelecionado, setRegistroSelecionado, filtros}) {
+export default function TelaConsulta({telaId, externo, acoes, loading, tela, registroSelecionado, setRegistroSelecionado, filtros, chave}) {
     const dispatch = useDispatch()
     const [campo, setCampo] = useState(null)
     const [operador, setOperador] = useState()
@@ -17,11 +18,11 @@ export default function TelaConsulta({telaId, externo, acoes, loading, tela, reg
     const [registrosPagina, setRegistrosPagina] = useState(30)
 
     if(loading) {
-        return "carregando..."
+        return <Loading />
     }
 
-    function aplicaFiltros(page = 1) {
-        const component = TelaList(telaId, {filtro: {campo: campo, operador: operador, valor1: valor1, valor2: valor2}, registrosPorPagina: registrosPagina, page: page})
+    function aplicaFiltros(page = 1, chave = '') {
+        const component = TelaList(telaId, {filtro: {campo: campo, operador: operador, valor1: valor1, valor2: valor2}, registrosPorPagina: registrosPagina, page: page, acao: {chave: chave}})
         const tela = {
             id: telaId,
             pagina: component.pagina,
@@ -58,7 +59,7 @@ export default function TelaConsulta({telaId, externo, acoes, loading, tela, reg
     return(
         <div>
             <div className="text-black py-1">
-                {filtros && <FiltroContainer aplicaFiltros={aplicaFiltros} filtros={filtros} telaId={telaId} campo={campo} setCampo={setCampo} operador={operador} setOperador={setOperador} valor1={valor1} setValor1={setValor1} valor2={valor2} setValor2={setValor2}/>}
+                {filtros && <FiltroContainer chave={chave} aplicaFiltros={aplicaFiltros} filtros={filtros} telaId={telaId} campo={campo} setCampo={setCampo} operador={operador} setOperador={setOperador} valor1={valor1} setValor1={setValor1} valor2={valor2} setValor2={setValor2}/>}
             </div>
             <div className="border-zinc-400 border-b text-black bg-zinc-50">
                 <AcaoContainer acoes={acoes}/>

@@ -31,6 +31,9 @@ export default function ProdutoConsulta({externo, filtro, registrosPorPagina, pa
         },
         {
             el: <AcaoConsulta acao={{telaPai: TELA_ID, chave: registroSelecionado , nome: 'Subprodutos', tipo: 'consulta', acao: 'openPage', pagina: 'produtosubprodutoConsulta'}}/>
+        },
+        {
+            el: <AcaoConsulta acao={{telaPai: TELA_ID, chave: registroSelecionado , nome: 'Variações', tipo: 'consulta', acao: 'openPage', pagina: 'variacaoprodutoConsulta'}}/>
         }
     ]
 

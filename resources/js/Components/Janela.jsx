@@ -157,7 +157,7 @@ class Janela extends Component {
                         </div>
                 </div>
                 {/* body container */}
-                <div style={{height: 'calc(100% - 50px)'}} className='border-sky-500 border-2 overflow-auto bg-gray-100'>{this.props.children}</div>
+                <div style={{height: 'calc(100% - 50px)'}} className='border-sky-500 border-2 overflow-auto bg-gray-100 text-black'>{this.props.children}</div>
                 {/* rodape container */}
                 <div className='absolute bottom-0 w-full'>{this.rodape}</div>
                 {/* resizes containers */}

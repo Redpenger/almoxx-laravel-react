@@ -1,21 +1,69 @@
+import AcaoExcluir from "@/Components/AcaoExcluir"
+import AcaoManutencao from "@/Components/AcaoManutencao"
 import Janela from "@/Components/Janela"
 import TelaConsulta from "@/Components/TelaConsulta"
-import { TelasContext } from "@/Contexts/TelasContext"
-import { useContext, useEffect, useState } from "react"
-import WinBox from "react-winbox"
+import { useEffect, useState } from "react"
+import useHandleClose from "@/Hooks/useHandleClose"
+import { useDispatch, useSelector } from "react-redux"
+import TelaRefActionTypes from "@/Redux/TelaRef.jsx/TelaRefActionTypes"
 
-const TELA_ID = 'clienteConsulta'
-const URL = 'http://127.0.0.1:8000/api/cliente/consulta'
-const acoes = []
+const Url = 'http://127.0.0.1:8000/api/cliente/consulta'
 
-export default function ClienteConsulta({handleClose, innerRef}) {
-    const {telas, setTelas, telaRef} = useContext(TelasContext)
+export default function ClienteConsulta({externo, filtro, registrosPorPagina, page}) {
+    const TELA_ID = !externo ? 'clienteConsulta' : 'clienteConsulta-externo'
+    const reloader = useSelector(root => root.ForceReloadReducer)
+    const dispatch = useDispatch()
+    const handleClose = useHandleClose(TELA_ID)
     const [tela, setTela] = useState()
     const [loading, setLoading] = useState(true)
     const [registroSelecionado, setRegistroSelecionado] = useState()
 
+    const acoes = [
+        {
+            el: <AcaoManutencao  acao={{telaPai: TELA_ID, chave: registroSelecionado , nome: 'Incluir', tipo: 'create', acao: 'store', pagina: 'clienteManutencao'}}/>
+        },
+        {
+            el: <AcaoManutencao acao={{telaPai: TELA_ID, chave: registroSelecionado , nome: 'Editar', tipo: 'edit', acao: 'update', pagina: 'clienteManutencao'}}/>
+        },
+        {
+            el: <AcaoExcluir acao={{telaPai: TELA_ID, chave: registroSelecionado , nome: 'Excluir', tipo: 'destroy', acao: 'destroy', pagina: 'clienteConsulta', actionUrl: 'http://127.0.0.1:8000/api/cliente/manutencao'}}/>
+        }
+    ]
+
+    const filtros = 
+        {
+            id: {
+                nome: 'Código',
+                operadores : {
+                    igual: '=',
+                    maior: '>',
+                    menor: '<',
+                    entre: 'BETWEEN'
+                }
+            },
+            nome: {
+                nome: 'Nome',
+                operadores : {
+                    igual: '=',
+                    contem: 'LIKE',
+                }
+            }
+
+        }  
+
+    function encodeParams(obj) {
+        if(!obj) return ''
+        let aParam = []
+        Object.keys(obj).map(key => {
+            aParam.push(`${key}=${obj[key]}`)
+        })
+        return aParam.join('&')
+    }
+ 
     useEffect(() => {
-        fetch(URL, {
+        registrosPorPagina = registrosPorPagina ? registrosPorPagina : ''
+        page = page ? page : 1
+        fetch(Url + '?' + encodeParams(filtro) + `&page=${page}` + `&registrosPorPagina=${registrosPorPagina}`, {
             method: 'GET',
         })
         .then(res => res.json())
@@ -25,11 +73,12 @@ export default function ClienteConsulta({handleClose, innerRef}) {
         .finally(() => {
             setLoading(false)
         })
-    }, [])
+        setRegistroSelecionado(null)
+    }, [reloader[TELA_ID]])
 
     return (
         <>
-            <Janela ref={el => innerRef.current[TELA_ID] = el} 
+            <Janela ref={el => dispatch({type: TelaRefActionTypes.ADD, payload: {id: TELA_ID, ref: el}})} 
                         onClose={() => handleClose(TELA_ID)}
                         title={'Consulta de Clientes'}  
                         id={TELA_ID}  
@@ -37,10 +86,13 @@ export default function ClienteConsulta({handleClose, innerRef}) {
                         height={document.body.clientHeight - 82 + 'px'}
                         top={'35px'}
                     >
-                    <TelaConsulta acoes={acoes} loading={loading} tela={tela} handleClose={handleClose} registroSelecionado={registroSelecionado} setRegistroSelecionado={setRegistroSelecionado}/>
 
+                    <TelaConsulta filtros={filtros} telaId={TELA_ID} externo={externo} acoes={acoes} loading={loading} tela={tela} registroSelecionado={registroSelecionado} setRegistroSelecionado={setRegistroSelecionado}/>
 
             </Janela>
+                    
+                    
+            
         </>
     )
 }

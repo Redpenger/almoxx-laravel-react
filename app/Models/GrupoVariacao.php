@@ -10,4 +10,11 @@ class GrupoVariacao extends Model
     use HasFactory;
 
     protected $table = 'grupo_variacoes';
+
+    public function variacoes() {
+        return $this->hasMany('App\Models\Variacao');
+    }
+
+
+
 }
